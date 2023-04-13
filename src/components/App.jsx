@@ -4,9 +4,9 @@ import Filter from './Filter';
 import Message from './Message';
 import Loader from './Loader';
 import css from './App.module.css';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/contacts/selectors';
 
-import { selectIsLoading, selectError } from 'redux/selectors';
+import { selectIsLoading, selectError } from 'redux/contacts/selectors';
 import { useSelector } from 'react-redux';
 
 function App() {
