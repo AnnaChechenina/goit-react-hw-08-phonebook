@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  padding: 15px;
+  font-weight: 700;
+}
+
+.logoutbtn {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  height: 40px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 700;
+  border: none;
+  color: inherit;
+  border-radius: 4px;
+  background-color: greenyellow;
+}
+
+.logoutbtn:hover,
+.logoutbtn:focus {
+  color: lightblue;
+}

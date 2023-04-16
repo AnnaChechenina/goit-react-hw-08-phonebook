@@ -13,14 +13,14 @@ function Filter() {
   };
 
   return (
-    <label className={css.label}>
-      <p className={css.text}>Find contacts by name</p>
+    <label className={css.filter__lable}>
+      <p className={css.filter__description}>Find contacts by name</p>
       <input
-        className={css.input}
+        className={css.filter__input}
         type="text"
         value={filter}
-        placeholder="Search..."
         onChange={onChange}
+        placeholder="Enter the search name"
       />
     </label>
   );

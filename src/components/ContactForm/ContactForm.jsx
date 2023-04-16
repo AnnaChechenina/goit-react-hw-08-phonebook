@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
-
 import { toast } from 'react-toastify';
 import { selectContacts } from 'redux/contacts/selectors';
 import css from './ContactForm.module.css';
@@ -31,11 +30,11 @@ function ContactForm() {
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
-      <label className={css.label}>
-        <span className={css.title}>Name</span>
+    <form className={css.contactform} onSubmit={handleSubmit}>
+      <label className={css.contactform__label}>
+        <span className={css.contactform__title}>Name</span>
         <input
-          className={css.input}
+          className={css.contactform__input}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -43,10 +42,10 @@ function ContactForm() {
           required
         />
       </label>
-      <label className={css.label}>
-        <span className={css.title}>Number</span>
+      <label className={css.contactform__label}>
+        <span className={css.contactform__title}>Number</span>
         <input
-          className={css.input}
+          className={css.contactform__input}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -54,7 +53,7 @@ function ContactForm() {
           required
         />
       </label>
-      <button className={css.button} type="submit">
+      <button className={css.contact__addbtn} type="submit">
         Add contact
       </button>
     </form>

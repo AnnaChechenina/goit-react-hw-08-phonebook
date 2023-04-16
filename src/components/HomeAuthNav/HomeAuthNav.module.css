@@ -1,0 +1,28 @@
+.homenavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.homenavigation__link {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  min-height: 40px;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: inherit;
+  font-weight: 700;
+  border: none;
+  color: black;
+  border-radius: 4px;
+  background-color: greenyellow;
+}
+
+.homenavigation__link:hover,
+.homenavigation__link:focus {
+  background-color: blue;
+}
