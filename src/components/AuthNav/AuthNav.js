@@ -9,7 +9,7 @@ const AuthNav = () => {
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/register"
         >
-          Register
+          Registration
         </NavLink>
       </div>
       <div className={css.link}>
@@ -17,7 +17,7 @@ const AuthNav = () => {
           className={({ isActive }) => (isActive ? 'active' : 'inactive')}
           to="/login"
         >
-          Log In
+          LogIn
         </NavLink>
       </div>
     </div>

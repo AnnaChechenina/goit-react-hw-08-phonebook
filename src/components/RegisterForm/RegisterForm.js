@@ -1,16 +1,42 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import css from './RegisterForm.module.css';
 
-const RegisterForm = () => {
+export const RegisterForm = () => {
   const dispatch = useDispatch();
-  const handleSubmit = evt => {
-    evt.preventDefault();
+  const [name, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const form = evt.currentTarget;
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        return setUserName(value);
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      default:
+        return;
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (name === '' || password === '' || email === '') {
+      Notify.warning(`Please fill in all fields!`, {
+        background: '#eebf31',
+        fontSize: '16px',
+        width: '350px',
+      });
+      return;
+    }
+    const form = e.currentTarget;
+
     dispatch(
       register({
         name: form.elements.name.value,
@@ -18,50 +44,53 @@ const RegisterForm = () => {
         password: form.elements.password.value,
       })
     );
+    setUserName('');
+    setEmail('');
+    setPassword('');
     form.reset();
   };
 
   return (
-    <>
-      <Box
-        className={css.register__form}
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '55ch' },
-        }}
-        noValidate
-        onSubmit={handleSubmit}
-        autoComplete="off"
-      >
-        <TextField
-          
-          label="Username"
+    <form
+      className={css.register__form}
+      onSubmit={handleSubmit}
+      autoComplete="off"
+    >
+      <label className={css.register__label}>
+        Username
+        <input
+          className={css.register__input}
           type="text"
           name="name"
+          onChange={handleChange}
+          placeholder="Enter your name"
         />
-        <TextField
-
-          label="Email"
+      </label>
+      <label className={css.register__label}>
+        Email
+        <input
+          className={css.register__input}
           type="email"
           name="email"
-          autoComplete="current-password"
+          onChange={handleChange}
+          placeholder="email@mail.com"
         />
-        <TextField
-
-          label="Password"
+      </label>
+      <label className={css.register__label}>
+        Password
+        <input
+          className={css.register__input}
           type="password"
-          name="password"          autoComplete="current-password"
+          name="password"
+          onChange={handleChange}
+          pattern="(?=.*\d).{7,}"
+          placeholder="7 characters or more, please"
         />
-        <button
-          className={css.register__btn}
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Registration
-        </button>
-      </Box>
-    </>
+      </label>
+      <button className={css.register__btn} type="submit">
+        Registration
+      </button>
+    </form>
   );
 };
 
