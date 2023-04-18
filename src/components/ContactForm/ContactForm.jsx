@@ -1,32 +1,53 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
-import { toast } from 'react-toastify';
+import { nanoid } from '@reduxjs/toolkit';
+import React, { useState } from 'react';
 import { selectContacts } from 'redux/contacts/selectors';
 import css from './ContactForm.module.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-function ContactForm() {
+export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-  const handleSubmit = evt => {
-    evt.preventDefault();
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-    const { name, number } = evt.target;
+  const handleChange = e => {
+    const { name, value } = e.currentTarget;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
+  };
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
-    if (contacts.find(contact => contact.name === name.value)) {
-      return toast.error(`Sorry, ${name.value} is already in contacts.`);
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (
+      contacts?.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      Notify.warning(`Name ${name} is already in your contacts`, {
+        background: '#eebf31',
+        fontSize: '16px',
+        width: '350px',
+      });
+      return;
     }
 
-    if (contacts.find(contact => contact.number === number.value)) {
-      return toast.error(`Sorry, ${number.value} is already in contacts.`);
-    }
-
-    const newFriend = {
-      name: name.value,
-      number: number.value,
-    };
-
-    dispatch(addContact(newFriend));
-    evt.target.reset();
+    const newContact = { id: nanoid(), name, number };
+    dispatch(addContact(newContact));
+    reset();
   };
 
   return (
@@ -51,6 +72,7 @@ function ContactForm() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          onChange={handleChange}
         />
       </label>
       <button className={css.contact__addbtn} type="submit">
@@ -58,6 +80,6 @@ function ContactForm() {
       </button>
     </form>
   );
-}
+};
 
 export default ContactForm;
