@@ -4,12 +4,12 @@ import { deleteContact } from 'redux/contacts/operations';
 
 import css from './Contact.module.css';
 
-function Contact({ name, number, id }) {
+function Contact({ contact }) {
   const dispatch = useDispatch();
   const onDeleteContact = id => {
     dispatch(deleteContact(id));
   };
-
+  const { name, number, id } = contact;
   return (
     <li className={css.contact__item} key={id}>
       <p className={css.contact__description}>
@@ -18,7 +18,7 @@ function Contact({ name, number, id }) {
       <button
         className={css.contact__deletebtn}
         type="button"
-        onClick={onDeleteContact}
+        onClick={() => onDeleteContact(id)}
       >
         Delete
       </button>

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import css from './LoginForm.module.css';
 
 export const LoginForm = () => {
@@ -23,14 +22,7 @@ export const LoginForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (password === '' || email === '') {
-      Notify.warning(`Please fill in all the fields!`, {
-        background: '#eebf31',
-        fontSize: '16px',
-        width: '350px',
-      });
-      return;
-    }
+
     const form = e.currentTarget;
     dispatch(
       logIn({
@@ -55,6 +47,7 @@ export const LoginForm = () => {
           value={email}
           onChange={handleChange}
           placeholder="Enter your email"
+          required
         />
       </label>
       <label className={css.login__label}>
@@ -67,6 +60,8 @@ export const LoginForm = () => {
           autoComplete="current-password"
           onChange={handleChange}
           placeholder="Enter your password"
+          required
+          minLength={7}
         />
       </label>
       <button className={css.login__btn} type="submit">
